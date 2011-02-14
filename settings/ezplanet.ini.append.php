@@ -7,9 +7,10 @@ BloggerClassIdentifier=user
 
 # Attribute to find RSS feed URL
 BloggerRSSLocationAttributeIdentifier=location_rss
+BloggerLocationAttributeIdentifier=location_blog
 
 # Parent node ID where find bloggers
-BloggerParentNodeID=2
+#BloggerParentNodeID=2
 
 # Log name
 LogName=planet.log
@@ -18,7 +19,7 @@ LogName=planet.log
 [BlogPostClass]
 # Settings for the blog post class
 
-ClassIdentifier=blogpost
+ClassIdentifier=planet_blogpost
 ImportDescription[rss_version]=2.0
 
 ClassAttributes[]

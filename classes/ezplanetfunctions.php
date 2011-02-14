@@ -230,6 +230,11 @@ class eZPlanetFunctions
 
         // Fetch class, and create ezcontentobject from it.
         $contentClass = eZContentClass::fetchByIdentifier( $iniPlanet->variable( "BlogPostClass", "ClassIdentifier" )  );
+        if ( ! $contentClass instanceof eZContentClass )
+        {
+            $cli->error('There is no eZContentClass with "' . $iniPlanet->variable( "BlogPostClass", "ClassIdentifier" ) . '" identifier');
+            eZExecution::cleanExit();
+        }
 
         // Instantiate the object with user $rssOwnerID and use section id from parent. And store it.
         $contentObject = $contentClass->instantiate( $rssOwnerID, $parentContentObject->attribute( 'section_id' ) );
@@ -298,7 +303,7 @@ class eZPlanetFunctions
         }
 
         $contentObject->setAttribute( 'remote_id', 'RSSImport_'.$rssImportID.'_'. $md5Sum );
-        //$contentObject->store();
+        $contentObject->store();
         $db->commit();
 
         // Publish new object. The user id is sent to make sure any workflow
