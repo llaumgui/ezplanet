@@ -215,7 +215,7 @@ class eZPlanetFunctions
 
         // Try to fetch RSSImport object with md5 sum matching link.
         $existingObject = eZPersistentObject::fetchObject( eZContentObject::definition(), null,
-                                                           array( 'remote_id' => 'RSSImport_'.$rssImportID.'_'.$md5Sum ) );
+                                                           array( 'remote_id' => 'RSSImport__'.$md5Sum ) );
 
         // if object exists, continue to next import item
         if ( $existingObject != null )
