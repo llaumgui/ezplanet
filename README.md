@@ -1,4 +1,4 @@
-__Project already hosted on eZ Projects Forge : [http://projects.ez.no/ezfluxbb](http://projects.ez.no/ezfluxbb)__
+__Project already hosted on eZ Projects Forge : [http://projects.ez.no/ezfluxbb](http://projects.ez.no/ezplanet)__
 
 
 Introduction
