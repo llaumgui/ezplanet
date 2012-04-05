@@ -1,47 +1,26 @@
 <?php
-//
-// Definition of eZPlanetFunctions class
-//
-// Created on: <30 janv. 2011 10:50:20 llaumgui>
-//
-// ## BEGIN COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
-// SOFTWARE NAME: eZPlanet
-// SOFTWARE RELEASE: 1.1
-// COPYRIGHT NOTICE: Copyright (C) 2008-2011 Guillaume Kulakowski
-// SOFTWARE LICENSE: GNU General Public License v2.0
-// NOTICE: >
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of version 2.0 of the GNU General
-// Public License as published by the Free Software Foundation.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of version 2.0 of the GNU General
-// Public License along with this program; if not, write to the Free
-// Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-// MA 02110-1301, USA.
-//
-//
-// ## END COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
-//
+/**
+ * File containing the eZPlanetFunctions class
+ *
+ * @version //autogentag//
+ * @package EZPlanet
+ * @copyright Copyright (C) 2008-2012 Guillaume Kulakowski and contributors
+ * @license http://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2.0
+ */
 
-/*! \file ezplanetfunctions.php
-*/
-
-/*!
-  \class eZPlanetFunctions ezplanetfunctions.php
-  \brief function used by RSS importation in eZPlanet
-*/
+/**
+ * The eZGauffr class provide function used by RSS importation in eZPlanet
+ *
+ * @package EZPlanet
+ * @version //autogentag//
+ */
 class eZPlanetFunctions
 {
 
     /**
      * Clean field description in RSS feed.
      *
-     * @param $str string
+     * @param sting $str string
      */
     public static function cleanRSSDescription( &$str )
     {
@@ -58,11 +37,12 @@ class eZPlanetFunctions
 
 
 
- 	/**
- 	 *
- 	 * @param $attribute
-     * @param $attributeValue
-     * @param $link
+    /**
+     * Set the EZTXT attribute
+     *
+     * @param unknown_type $attribute
+     * @param unknown_type $attributeValue
+     * @param unknown_type $link
      */
     public static function setEZTXTAttribute( $attribute, $attributeValue, $link = false )
     {
@@ -70,7 +50,7 @@ class eZPlanetFunctions
 
         $ini = eZINI::instance();
 
-        if( class_exists('eZTidy')
+        if( class_exists( 'eZTidy' )
          && ( in_array( 'eztidy', $ini->variable( "ExtensionSettings", "ActiveExtensions" ) )
               || in_array( 'eztidy', $ini->variable( "ExtensionSettings", "ActiveAccessExtensions" ) )) )
         {
@@ -85,12 +65,12 @@ class eZPlanetFunctions
 
 
 
-	/**
-	 * Parse RSS 1.0 feed
-	 *
-	 * @param $root  DOM node
-	 * @param $rssImport RSS Import item
-	 * @param $cli eZCLI
+    /**
+     * Parse RSS 1.0 feed
+     *
+     * @param unknown_type $root
+     * @param unknown_type $rssImport
+     * @param eZCli $cli
      */
     function rssImport1( $root, $rssImport, $cli )
     {
@@ -126,9 +106,9 @@ class eZPlanetFunctions
     /**
      * Parse RSS 2.0 feed
      *
-     * @param $root  DOM node
-     * @param $rssImport RSS Import item
-     * @param $cli eZCLI
+     * @param unknown_type $root
+     * @param unknown_type $rssImport
+     * @param eZCli $cli
      */
     function rssImport2( $root, $rssImport, $cli )
     {
@@ -163,10 +143,10 @@ class eZPlanetFunctions
     /**
      * Import specifiec rss item into content tree
      *
-     * @param $item RSS item xml element
-     * @param $rssImport RSS Import item
-     * @param $cli eZCLI
-     * @param $channel RSS channel xml element
+     * @param unknown_type $item
+     * @param unknown_type $rssImport
+     * @param eZCli $cli
+     * @param unknown_type $channel
      *
      * @return 1 if object added, 0 if not
      */
@@ -232,7 +212,7 @@ class eZPlanetFunctions
         $contentClass = eZContentClass::fetchByIdentifier( $iniPlanet->variable( "BlogPostClass", "ClassIdentifier" )  );
         if ( ! $contentClass instanceof eZContentClass )
         {
-            $cli->error('There is no eZContentClass with "' . $iniPlanet->variable( "BlogPostClass", "ClassIdentifier" ) . '" identifier');
+            $cli->error( 'There is no eZContentClass with "' . $iniPlanet->variable( "BlogPostClass", "ClassIdentifier" ) . '" identifier' );
             eZExecution::cleanExit();
         }
 
@@ -246,7 +226,7 @@ class eZPlanetFunctions
 
         // Create node assignment
         $nodeAssignment = eZNodeAssignment::create( array(
-        	'contentobject_id' => $contentObjectID,
+            'contentobject_id' => $contentObjectID,
             'contentobject_version' => $contentObject->attribute( 'current_version' ),
             'is_main' => 1,
             'parent_node' => $parentContentObjectTreeNode->attribute( 'node_id' ) )
@@ -315,9 +295,13 @@ class eZPlanetFunctions
         if ( !isset( $operationResult['status'] ) || $operationResult['status'] != eZModuleOperationInfo::STATUS_CONTINUE )
         {
             if ( isset( $operationResult['result'] ) && isset( $operationResult['result']['content'] ) )
+            {
                 $failReason = $operationResult['result']['content'];
+            }
             else
+            {
                 $failReason = "unknown error";
+            }
             $cli->error( "Publishing failed: $failReason" );
             unset( $failReason );
         }
@@ -395,10 +379,11 @@ class eZPlanetFunctions
 
 
 
-	/**
-	 *
-     * @param $importDescriptionArray array
-     * @param $xmlDomNode DOM
+    /**
+     * Find recursive RSS element value
+     *
+     * @param array $importDescriptionArray
+     * @param unknown_type $xmlDomNode
      */
     function recursiveFindRSSElementValue( $importDescriptionArray, $xmlDomNode )
     {
@@ -417,7 +402,9 @@ class eZPlanetFunctions
                 {
                     $resultArray = array();
                     if ( $xmlDomNode->getElementsByTagName( $importDescriptionArray[0] )->length < 1 )
+                    {
                         return false;
+                    }
 
                     for ( $item = 0; $item < $xmlDomNode->getElementsByTagName( $importDescriptionArray[0] )->length; $item++ )
                     {
@@ -428,9 +415,11 @@ class eZPlanetFunctions
                         }
                     }
                     if ( !$resultArray )
+                    {
                         return false;
+                    }
 
-                    return implode(',', $resultArray);
+                    return implode( ',', $resultArray );
                 }
                 else
                 {
@@ -450,9 +439,10 @@ class eZPlanetFunctions
 
 
     /**
+     * Set object attribute value
      *
-     * @param $objectAttribute
-     * @param $value
+     * @param unknown_type $objectAttribute
+     * @param unknown_type $value
      */
     static function  setObjectAttributeValue( $objectAttribute, $value )
     {
@@ -490,12 +480,14 @@ class eZPlanetFunctions
             {
                 $timestamp = strtotime( $value );
                 if ( $timestamp )
+                {
                     $objectAttribute->setAttribute( 'data_int', $timestamp );
+                }
             } break;
 
             case 'ezdatetime':
             {
-                $objectAttribute->setAttribute( 'data_int', strtotime($value) );
+                $objectAttribute->setAttribute( 'data_int', strtotime( $value ) );
             } break;
 
             default:
@@ -510,10 +502,11 @@ class eZPlanetFunctions
 
 
     /**
+     * Set EZXML attribute
      *
-     * @param $attribute
-     * @param $attributeValue
-     * @param $link
+     * @param unknown_type $attribute
+     * @param unknown_type $attributeValue
+     * @param unknown_type $link
      */
     function setEZXMLAttribute( $attribute, $attributeValue, $link = false )
     {

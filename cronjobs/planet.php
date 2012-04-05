@@ -1,38 +1,14 @@
 <?php
-//
-// Created on: <29 janv. 2011 18:55:17 llaumgui>
-//
-// ## BEGIN COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
-// SOFTWARE NAME: eZPlanet
-// SOFTWARE RELEASE: 1.1
-// COPYRIGHT NOTICE: Copyright (C) 2008-2011 Guillaume Kulakowski
-// SOFTWARE LICENSE: GNU General Public License v2.0
-// NOTICE: >
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of version 2.0 of the GNU General
-// Public License as published by the Free Software Foundation.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of version 2.0 of the GNU General
-// Public License along with this program; if not, write to the Free
-// Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-// MA 02110-1301, USA.
-//
-//
-// ## END COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
-//
+/**
+ * File containing the eZPlanet cronjobs
+ *
+ * @version //autogentag//
+ * @package EZPlanet
+ * @copyright Copyright (C) 2008-2012 Guillaume Kulakowski and contributors
+ * @license http://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2.0
+ */
 
-/*! \file
-*/
-
-/*!
-  \brief Planet cronjobs
-*/
-$beginScript = microtime(true);
+$beginScript = microtime( true );
 global $logInfo;
 
 $cli->setUseStyles( true ); // enable colors
@@ -54,16 +30,18 @@ $logInfo = array(
  */
 $bloggerClassIdentifier = $iniPlanet->variable( "PlanetSettings", "BloggerClassIdentifier" );
 $bloggerRSSLocationAttributeIdentifier =  $iniPlanet->variable( "PlanetSettings", "BloggerRSSLocationAttributeIdentifier" );
-$bloggerContentClass = eZFunctionHandler::execute('content','class', array(
+$bloggerContentClass = eZFunctionHandler::execute( 'content', 'class', array(
     'class_id' => $bloggerClassIdentifier,
 ) );
 if ( ! $bloggerContentClass instanceof eZContentClass )
 {
-    $cli->error('There is no eZContentClass with "' . $bloggerClassIdentifier . '" identifier');
+    $cli->error( 'There is no eZContentClass with "' . $bloggerClassIdentifier . '" identifier' );
     eZExecution::cleanExit();
 }
 if ( !$isQuiet )
-    $cli->output( $cli->stylize('cyan', 'Use "' . $bloggerContentClass->name(). '" class' ) );
+{
+    $cli->output( $cli->stylize( 'cyan', 'Use "' . $bloggerContentClass->name(). '" class' ) );
+}
 
 
 /*
@@ -75,11 +53,13 @@ $bloggerParentNode= eZFunctionHandler::execute( 'content', 'node', array(
 ) );
 if ( ! $bloggerParentNode instanceof eZContentObjectTreeNode )
 {
-    $cli->error('There is no eZContentObjectTreeNode with node_id=' . $bloggerParentNodeId);
+    $cli->error( 'There is no eZContentObjectTreeNode with node_id=' . $bloggerParentNodeId );
     eZExecution::cleanExit();
 }
 if ( !$isQuiet )
-    $cli->output( $cli->stylize('cyan', 'Use "' . $bloggerParentNode->getName(). '" parent node (' . $bloggerParentNodeId . ')' ) );
+{
+    $cli->output( $cli->stylize( 'cyan', 'Use "' . $bloggerParentNode->getName(). '" parent node (' . $bloggerParentNodeId . ')' ) );
+}
 
 
 /*
@@ -92,19 +72,21 @@ $bloggersNode= eZFunctionHandler::execute( 'content', 'tree', array(
 ) );
 if ( !$bloggersNode )
 {
-    $cli->error('There is no blogger (' . $bloggerContentClass->name() .') in "' . $bloggerParentNode->getName() . '" (' . $bloggerParentNodeId . ')' );
+    $cli->error( 'There is no blogger (' . $bloggerContentClass->name() .') in "' . $bloggerParentNode->getName() . '" (' . $bloggerParentNodeId . ')' );
     eZExecution::cleanExit();
 }
 $logInfo['countTotalBlogs'] = count( $bloggersNode );
 if ( !$isQuiet )
-    $cli->output( $cli->stylize('cyan', 'Find ' . $logInfo['countTotalBlogs'] . ' blogger(s)' ) );
+{
+    $cli->output( $cli->stylize( 'cyan', 'Find ' . $logInfo['countTotalBlogs'] . ' blogger(s)' ) );
+}
 
 
 /*
  * Start importation
  */
 eZLog::write(
-	"# BEGIN importation | " . $logInfo['countTotalBlogs'] . " blog(s)",
+    "# BEGIN importation | " . $logInfo['countTotalBlogs'] . " blog(s)",
     $logInfo['logName'],
     $logInfo['logDir']
 );
@@ -127,7 +109,7 @@ foreach ( $bloggersNode as $rssImport )
         $cli->warning( 'No RSS feed for ' . $rssImport->attribute( 'name' ) );
 
         eZLog::write(
-        	" - " . $rssImport->attribute( 'name' ) . ": no RSS feeds",
+            " - " . $rssImport->attribute( 'name' ) . ": no RSS feeds",
             $logInfo['logName'],
             $logInfo['logDir']
         );
@@ -137,14 +119,16 @@ foreach ( $bloggersNode as $rssImport )
     {
         $addCount = 0;
         if ( !$isQuiet )
+        {
             $cli->output( 'Starting RSS importation for '.$rssImport->attribute( 'name' ) );
+        }
 
         $xmlData = eZHTTPTool::getDataByURL( $rssSource, false, 'eZ Publish RSS Import' );
         if ( $xmlData === false )
         {
             $cli->warning( $rssImport->attribute( 'name' ).': Failed to open RSS feed file: '.$rssSource );
             eZLog::write(
-            	" - " . $rssImport->attribute( 'name' ) . " : Failed to open RSS feed file",
+                " - " . $rssImport->attribute( 'name' ) . " : Failed to open RSS feed file",
                 $logInfo['logName'],
                 $logInfo['logDir']
             );
@@ -160,7 +144,7 @@ foreach ( $bloggersNode as $rssImport )
         {
             $cli->warning( 'RSSImport '.$rssImport->attribute( 'name' ).': Invalid RSS document.' );
             eZLog::write(
-            	" - " . $rssImport->attribute( 'name' ) . " : Invalid RSS document",
+                " - " . $rssImport->attribute( 'name' ) . " : Invalid RSS document",
                 $logInfo['logName'],
                 $logInfo['logDir']
             );
@@ -222,11 +206,13 @@ foreach ( $bloggersNode as $rssImport )
  */
 eZStaticCache::executeActions();
 
-$endScript = microtime(true);
-$executionTime = round($endScript - $beginScript, 4);
+$endScript = microtime( true );
+$executionTime = round( $endScript - $beginScript, 4 );
 
 eZLog::write(
-	"# END importation | " . $executionTime . "s | " . $logInfo['countTotalBlogs'] . " blog(s) : " . $logInfo['blogOK'] . " OK, " . $logInfo['blogKO'] . " KO | " . $logInfo['countTotalBillets'] . " post(s)\n",
+    "# END importation | " . $executionTime . "s | " . $logInfo['countTotalBlogs'] . " blog(s) : " . $logInfo['blogOK'] . " OK, " . $logInfo['blogKO'] . " KO | " . $logInfo['countTotalBillets'] . " post(s)\n",
     $logInfo['logName'],
     $logInfo['logDir']
 );
+
+?>
