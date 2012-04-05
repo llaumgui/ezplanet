@@ -1,4 +1,4 @@
-<?php /*
+<?php /* #?ini charset="utf-8"?
 
 [block_ezPlanetPeople_ezplanet_people]
 Source=block/view/view.tpl
