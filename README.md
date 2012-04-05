@@ -10,4 +10,8 @@ eZPlanet provide a planet system for eZ Publish:
  * Clean HTML code with Tidy: using [eZTidy](http://projects.ez.no/eztidy)
  * Support keyword
 
+Continuous integration
+======================
+eZPlanet is under continuous integration: [http://ci.llaumgui.com/job/eZPlanet/](http://ci.llaumgui.com/job/eZPlanet/)
+
 ![eZ Publish Certified Developer](http://www.llaumgui.com/images/ezcertdev.png)
