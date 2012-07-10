@@ -237,7 +237,7 @@ function importRSSItem( $item, $rssImport, $cli, $channel )
     $classAttributeList = $contentClass->fetchAttributes();
     foreach( $classAttributeList as $classAttribute )
     {
-        $classAttributeID = $classAttribute->attribute( 'id' );
+        $classAttributeID = $classAttribute->attribute( 'identifier' );
         if ( isset( $importDescription['class_attributes'][$classAttributeID] ) )
         {
             if ( $importDescription['class_attributes'][$classAttributeID] == '-1' )
