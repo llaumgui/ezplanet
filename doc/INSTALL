@@ -1,17 +1,37 @@
-*Installing eZPlanet
+eZ Planet
+=========
+
+Requirements
+------------
+- eZ Publish 4.x
 
 
-Requirements:
-- eZ Publish 4.0.x
+Installation
+------------
+- Extract the eZPlanet extension, and place it in the extensions folder.
 
+- Enable the extension in eZ Publish. Do this by opening settings/override/site.ini.append.php, and add in the [ExtensionSettings] block:
+~~~
+ActiveExtensions[]=ezplanet
+~~~
 
-Installing:
-1. Extract the eZPlanet extension, and place it in the extensions folder. 
+- Generate the autoloads with the command: php bin/php/ezpgenerateautoloads.php
 
-2. Enable the extension in eZ Publish. Do this by opening settings/override/site.ini.append.php ,
-   and add in the [ExtensionSettings] block:
-   ActiveExtensions[]=ezplanet
+- Clear template override cache with the command: php bin/php/ezcache.php --clear-id=template-override
 
-3. Generate the autoloads with the command: php bin/php/ezpgenerateautoloads.php
+- Edit ezplanet.ini to configure your bloggers and posts content
 
-4. Clear template override cache with the command: php bin/php/ezcache.php --clear-id=template-override
+- Add planet to your cron
+~~~
+# Instruct cron to run the "frequent" set of cronjobs
+# every 15 minutes
+20 * * * * cd $EZPUBLISHROOT && $PHP runcronjobs.php -q planet 2>&1
+~~~
+
+- You can also setup version limit in content.ini
+~~~
+[VersionManagement]
+VersionHistoryClass[planet_blogpost]=1
+~~~
+
+- eZPlanet also provide some eZFlow block
