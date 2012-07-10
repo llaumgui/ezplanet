@@ -12,9 +12,6 @@ BloggerLocationAttributeIdentifier=location_blog
 # Parent node ID where find bloggers
 #BloggerParentNodeID=2
 
-# Log name
-LogName=planet.log
-
 
 [BlogPostClass]
 # Settings for the blog post class
