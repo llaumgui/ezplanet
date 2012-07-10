@@ -225,6 +225,17 @@ class eZPlanet
 
 
     /**
+     * Get the script execution time.
+     *
+     * @return integer
+     */
+    public function getExecutionTime()
+    {
+        return round( ( microtime( true ) - $this->beginScript ), 4 );
+    }
+
+
+    /**
      * Set the EZTXT attribute
      *
      * @param unknown_type $attribute
@@ -251,14 +262,23 @@ class eZPlanet
 
 
     /**
-     * Get the script execution time.
+     * Clean field description in RSS feed.
      *
-     * @return integer
+     * @param sting $string string
      */
-    public function getExecutionTime()
+    public static function cleanRSSDescription( &$string )
     {
-        return round( ( microtime( true ) - $this->beginScript ), 4 );
+        $patterns[] = '#<img src="/(.+?)" alt="(.+?)" />#is';
+        $patterns[] = '#<img src="/(.+?)" alt="" />#is';
+        $patterns[] = '/’/';
+
+        $replace[] = '$2';
+        $replace[] = '';
+        $replace[] = '';
+
+        $string = preg_replace( $patterns,  $replace, $string );
     }
+
 }
 
 ?>
