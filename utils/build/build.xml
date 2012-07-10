@@ -285,6 +285,7 @@
         <foreach param="filename" absparam="absfilename" target="_build-set-header">
             <fileset dir=".">
                 <include name="*.php"/>
+                <include name="*.xml"/>
             </fileset>
         </foreach>
 

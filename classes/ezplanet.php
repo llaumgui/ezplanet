@@ -166,7 +166,7 @@ class eZPlanet
 
         if( empty( $rssSource ) )
         {
-            $cli->warning( 'No RSS feed for ' . $blogger->attribute( 'name' ) );
+            eZCLI::instance()->warning( 'No RSS feed for ' . $blogger->attribute( 'name' ) );
             eZLog::write( "\t" . $blogger->attribute( 'name' ) . ': no RSS feeds', 'ezplanet.log' );
             $this->blogKO++;
         }
@@ -200,7 +200,7 @@ class eZPlanet
         $contentClass = eZContentClass::fetchByIdentifier( $ini->variable( "BlogPostClass", "ClassIdentifier" )  );
         if ( ! $contentClass instanceof eZContentClass )
         {
-            $cli->error( 'There is no eZContentClass with "' . $ini->variable( "BlogPostClass", "ClassIdentifier" ) . '" identifier' );
+            eZCLI::instance()->error( 'There is no eZContentClass with "' . $ini->variable( "BlogPostClass", "ClassIdentifier" ) . '" identifier' );
             eZExecution::cleanExit();
         }
         return $contentClass;
