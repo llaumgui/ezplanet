@@ -238,11 +238,10 @@ class eZPlanet
     /**
      * Set the EZTXT attribute
      *
-     * @param unknown_type $attribute
-     * @param unknown_type $attributeValue
-     * @param unknown_type $link
+     * @param eZContentObjectAttribute $attribute
+     * @param string $attributeValue
      */
-    public static function setEZTXTAttribute( $attribute, $attributeValue, $link = false )
+    public static function setEZTXTAttribute( $attribute, $attributeValue )
     {
         self::cleanRSSDescription( $attributeValue );
 
