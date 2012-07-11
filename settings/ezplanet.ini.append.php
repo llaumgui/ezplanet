@@ -7,6 +7,8 @@ BloggerClassIdentifier=user
 
 # Attribute to find RSS feed URL
 BloggerRSSLocationAttributeIdentifier=location_rss
+
+# Attribute to find blog URL
 BloggerLocationAttributeIdentifier=location_blog
 
 # Parent node ID where find bloggers
@@ -14,10 +16,15 @@ BloggerLocationAttributeIdentifier=location_blog
 
 
 [BlogPostClass]
-# Settings for the blog post class
 
+# Settings for the blog post class
 ClassIdentifier=planet_blogpost
 ImportDescription[rss_version]=2.0
+
+# Mapping between RSS and eZ content object ([BlogPostClass] section)
+#
+# ClassAttributes[]
+# ClassAttributes[ezContentObjectAttributeIdentifier]=RSS - Attribute
 
 ClassAttributes[]
 ClassAttributes[name]=item - elements - title

@@ -19,7 +19,9 @@ ActiveExtensions[]=ezplanet
 
 - Clear template override cache with the command: php bin/php/ezcache.php --clear-id=template-override
 
-- Edit ezplanet.ini to configure your bloggers and posts content
+- Edit ezplanet.ini to configure your bloggers and posts content ([PlanetSettings] section)
+
+- Edit ezplanet.ini to configure mapping between RSS and eZ content object ([BlogPostClass] section)
 
 - Add planet to your cron
 ~~~
