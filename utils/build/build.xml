@@ -276,15 +276,19 @@
 
         <copy todir="${dir.zip}/${phing.project.name}-${version}" >
             <fileset dir="${dir.source}">
-                <include name="*.php" />
-                <include name="*.png" />
-                <include name="doc/*" />
+                <include name="classes/**" />
+                <include name="cronjobs/**" />
+                <include name="design/**" />
+                <include name="doc/**" />
+                <include name="settings/**" />
+                <include name="*.xml" />
+                <include name="*.md" />
             </fileset>
         </copy>
 
         <foreach param="filename" absparam="absfilename" target="_build-set-header">
             <fileset dir=".">
-                <include name="*.php"/>
+                <include name="**/*.php"/>
                 <include name="*.xml"/>
             </fileset>
         </foreach>
