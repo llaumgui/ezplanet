@@ -5,6 +5,6 @@ ExtensionDirectories[]=ezplanet
 
 [CronjobPart-planet]
 Scripts[]
-Scripts[]=planet.php
+Scripts[]=planet_import.php
 
 */ ?>
