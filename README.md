@@ -1,3 +1,5 @@
+**This project is discontinued.**
+
 __Project already hosted on eZ Projects Forge: [http://projects.ez.no/ezplanet](http://projects.ez.no/ezplanet)__
 
 
